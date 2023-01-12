@@ -4,7 +4,6 @@ import mongoose = require('mongoose');
 
 describe('product ', () => {
   beforeAll(async () => {
-    // put your client connection code here, example with mongoose:
     // @ts-ignore
     await mongoose.connect(process.env['MONGO_URI']);
   });

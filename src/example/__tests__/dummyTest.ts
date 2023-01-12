@@ -1,15 +1,31 @@
-// requireActual ensures you get the real file
-// instead of an automock
-// we use import type and <typeof ...> to still get types
-import type * as Silly from '../dummy';
-const { sillyFunction } = jest.requireActual<typeof Silly>('../dummy');
+import { sillyFunction } from '../dummyFunctions';
+import { DummyClass } from '../dummyClass';
+
+// mock
+import { DummyClassToMock } from '../dummyClassToMock';
+jest.mock('../DummyClassToMock');
 
 describe('silly function', () => {
-  test('guaranteed random', () => {
-    expect(sillyFunction()).toBe(4);
+  test('test class', () => {
+    const some = new DummyClass();
+    const result = some.method(1);
+
+    expect(result).toBe(1);
+  });
+  test('test function', () => {
+    const result = sillyFunction();
+
+    expect(result).toBe(4);
+  });
+  test('mock class', () => {
+    (DummyClassToMock.prototype.method as jest.Mock).mockReturnValue(6);
+
+    const some = new DummyClassToMock();
+    const result = some.method(1, 2);
+
+    expect(result).toBe(6);
+    expect(some.method).toBeCalledTimes(1);
   });
 });
 
-// required with this small example
-// to make the isolatedModules config happy
 export {};
