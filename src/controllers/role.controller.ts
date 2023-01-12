@@ -21,7 +21,7 @@ const createRole = async (req: Request, res: Response) => {
 const getAllRoles = async (req: Request, res: Response) => {
   const roles = await Role.find().sort('-createdAt').exec();
 
-  return res.status(200).json({ data: roles });
+  return res.status(200).contentType('application/json').json({ data: roles });
 };
 
 const getRole = async (req: Request, res: Response) => {
