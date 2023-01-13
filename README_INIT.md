@@ -17,3 +17,9 @@ db.createUser(
 )
 
 exit
+
+docker-compose -f ./docker-compose.yml down
+
+rm -rf volumes/mongodb && mkdir volumes/mongodb && docker system prune -af && docker volume rm node-mongo-ts-api_mongo-init  node-mongo-ts-api_mongo-data
+
+docker-compose -f ./docker-compose.yml up -d

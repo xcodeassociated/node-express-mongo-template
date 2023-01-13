@@ -12,8 +12,16 @@ services:
       - MONGO_INITDB_DATABASE=example_db
     volumes:
       - mongo-data:/data/db
+      - mongo-init:/docker-entrypoint-initdb.d/:ro
 
 volumes:
+  mongo-init:
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: ./docker-init/mongodb
+
   mongo-data:
     driver: local
     driver_opts:
