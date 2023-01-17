@@ -117,5 +117,6 @@ dist
 .idea
 build
 .env
+docker/volumes/
 volumes/
 .DS_Store
