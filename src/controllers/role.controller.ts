@@ -15,13 +15,13 @@ const createRole = async (req: Request, res: Response) => {
 
   const roleCreated = await Role.create(roleInput);
 
-  return res.status(201).json({ data: roleCreated });
+  return res.status(201).json(roleCreated);
 };
 
 const getAllRoles = async (req: Request, res: Response) => {
   const roles = await Role.find().sort('-createdAt').exec();
 
-  return res.status(200).contentType('application/json').json({ data: roles });
+  return res.status(200).contentType('application/json').json(roles);
 };
 
 const getRole = async (req: Request, res: Response) => {
@@ -33,7 +33,7 @@ const getRole = async (req: Request, res: Response) => {
     return res.status(404).json({ message: `Role with id "${id}" not found.` });
   }
 
-  return res.status(200).json({ data: role });
+  return res.status(200).json(role);
 };
 
 const updateRole = async (req: Request, res: Response) => {
@@ -54,7 +54,7 @@ const updateRole = async (req: Request, res: Response) => {
 
   const roleUpdated = await Role.findById(id, { name, description });
 
-  return res.status(200).json({ data: roleUpdated });
+  return res.status(200).json(roleUpdated);
 };
 
 const deleteRole = async (req: Request, res: Response) => {

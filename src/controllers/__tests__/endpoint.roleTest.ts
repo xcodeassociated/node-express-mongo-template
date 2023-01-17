@@ -29,20 +29,20 @@ describe('testing-server-routes', () => {
   });
 
   it('GET /roles - success', async () => {
-    const { body } = await request(app).get('/roles');
+    const { body } = await request(app).get('/permissions');
 
-    expect(body).toEqual({ data: [] });
+    expect(body).toEqual([]);
   });
 
   it('POST /roles - success', async () => {
     const { body } = await request(app)
-      .post('/roles')
+      .post('/permissions')
       .send({ name: 'test-name', description: 'test-description' })
       .set('Accept', 'application/json')
       .expect(201)
       .expect('Content-Type', /json/);
 
-    expect(body.data.name).toEqual('test-name');
-    expect(body.data.description).toEqual('test-description');
+    expect(body.name).toEqual('test-name');
+    expect(body.description).toEqual('test-description');
   });
 });

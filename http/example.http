@@ -1,0 +1,45 @@
+### Example
+
+###
+GET http://localhost:4500/permissions
+
+###
+POST http://localhost:4500/permissions
+Content-Type: application/json
+
+{"name": "test-node-2", "description": "second test description node"}
+
+###
+GET http://localhost:4500/permissions/63c6e6cfb545df56fbe8e473
+
+###
+PUT http://localhost:4500/permissions/63c6e6cfb545df56fbe8e473
+Content-Type: application/json
+
+{"name": "test-node-changed", "description": "test description node changed!"}
+
+###
+DELETE http://localhost:4500/permissions/ID
+
+### User
+
+###
+GET http://localhost:4500/users
+
+###
+POST http://localhost:4500/users
+Content-Type: application/json
+
+{"name": "user test node 2", "email":  "test-node-22@test.com", "role": ["63c6e6cfb545df56fbe8e473"]}
+
+###
+PUT http://localhost:4500/users/63c6ea655ffa8d5a00bbe559
+Content-Type: application/json
+
+{"name": "user test node changed", "email":  "test-node-2@test.com", "role": ["63c6ed3e7be0c85e1159c6e4"]}
+
+###
+GET http://localhost:4500/users/63c6ea655ffa8d5a00bbe559
+
+###
+DELETE http://localhost:4500/users/63c6e9005ffa8d5a00bbe557

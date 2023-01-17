@@ -1,24 +1,20 @@
 import mongoose, { Schema, Model, Document } from 'mongoose';
 
 type UserDocument = Document & {
-  fullName: string;
+  name: string;
   email: string;
-  password: string;
-  enabled: string;
-  role: string;
+  role: string[];
 };
 
 type UserInput = {
-  fullName: UserDocument['fullName'];
+  name: UserDocument['name'];
   email: UserDocument['email'];
-  password: UserDocument['password'];
-  enabled: UserDocument['enabled'];
   role: UserDocument['role'];
 };
 
 const usersSchema = new Schema(
   {
-    fullName: {
+    name: {
       type: Schema.Types.String,
       required: true,
     },
@@ -27,20 +23,14 @@ const usersSchema = new Schema(
       required: true,
       unique: true,
     },
-    password: {
-      type: Schema.Types.String,
-      required: true,
-    },
-    enabled: {
-      type: Schema.Types.Boolean,
-      default: true,
-    },
-    role: {
-      type: Schema.Types.ObjectId,
-      ref: 'Role',
-      required: true,
-      index: true,
-    },
+    role: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'Role',
+        required: true,
+        index: true,
+      },
+    ],
   },
   {
     collection: 'users',

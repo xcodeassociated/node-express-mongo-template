@@ -4,15 +4,15 @@ import { createRole, deleteRole, getAllRoles, getRole, updateRole } from '../con
 const roleRoute = () => {
   const router = Router();
 
-  router.post('/roles', createRole);
+  router.post('/permissions', createRole);
 
-  router.get('/roles', getAllRoles);
+  router.get('/permissions', getAllRoles);
 
-  router.get('/roles/:id', getRole);
+  router.get('/permissions/:id', getRole);
 
-  router.put('/roles/:id', updateRole);
+  router.put('/permissions/:id', updateRole);
 
-  router.delete('/roles/:id', deleteRole);
+  router.delete('/permissions/:id', deleteRole);
 
   return router;
 };
