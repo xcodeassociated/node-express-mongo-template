@@ -5,11 +5,16 @@ import cors from 'cors';
 import { connectToDatabase } from './databaseConnection';
 import { roleRoute } from './routes/role.route';
 import { userRoute } from './routes/user.route';
+import { main } from './socket/rsocket';
 
 dotenv.config();
 
 const HOST = process.env.HOST || 'http://localhost';
 const PORT = parseInt(process.env.PORT || '4500');
+
+main().catch((error: Error) => {
+  console.error(error);
+});
 
 const app = express();
 
