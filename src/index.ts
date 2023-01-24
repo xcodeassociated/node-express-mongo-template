@@ -6,6 +6,7 @@ import { connectToDatabase } from './databaseConnection';
 import { roleRoute } from './routes/role.route';
 import { userRoute } from './routes/user.route';
 import { main } from './socket/rsocket';
+import { queueLoop} from "./queue";
 
 dotenv.config();
 
@@ -34,6 +35,8 @@ app.listen(PORT, async () => {
 
   console.log(`Application started on URL ${HOST}:${PORT} 🎉`);
 });
+
+queueLoop((data: string) => console.log(`>> queue pop with value: ${JSON.stringify(data)}`));
 
 process.on('uncaughtException', function (err) {
   console.log('Caught exception: ', err);

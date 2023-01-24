@@ -34,6 +34,7 @@
     "@types/rsocket-flowable": "^0.0.5",
     "@types/rsocket-websocket-client": "^0.0.4",
     "@types/rsocket-websocket-server": "^0.0.3",
+    "consumer-queue": "^1.1.0",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",

@@ -2,6 +2,8 @@ import { Request, Response } from 'express';
 
 import { User, UserInput } from '../models/user.model';
 
+import { queue } from '../queue';
+
 const createUser = async (req: Request, res: Response) => {
   const { email, name, role } = req.body;
 
@@ -12,6 +14,8 @@ const createUser = async (req: Request, res: Response) => {
   const userInput: UserInput = { name, email, role };
 
   const userCreated = await User.create(userInput);
+
+  queue.push(userCreated._id);
 
   return res.status(201).json(userCreated);
 };
