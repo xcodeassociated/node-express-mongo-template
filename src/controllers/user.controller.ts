@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 
 import { User, UserInput } from '../models/user.model';
 import { eventEmitter } from '../ApplicationEvents';
+import { getPageFromRequest, getSort, Page } from './requestTypes';
 
 const createUser = async (req: Request, res: Response) => {
   const { email, name, role } = req.body;
@@ -16,13 +17,21 @@ const createUser = async (req: Request, res: Response) => {
 
   eventEmitter.emit('user_created', userCreated._id);
 
-  return res.status(201).json(userCreated);
+  return res.status(201).contentType('application/json').json(userCreated);
 };
 
 const getAllUsers = async (req: Request, res: Response) => {
-  const users = await User.find().populate('role').sort('-createdAt').exec();
+  const pageRequest: Page = getPageFromRequest(req);
+  const parsedSort: string = getSort(pageRequest.sort, pageRequest.direction);
 
-  return res.status(200).json(users);
+  const users = await User.find()
+    .populate('role')
+    .limit(pageRequest.size)
+    .skip(pageRequest.size * pageRequest.page)
+    .sort(parsedSort)
+    .exec();
+
+  return res.status(200).contentType('application/json').json(users);
 };
 
 const getUser = async (req: Request, res: Response) => {
@@ -31,10 +40,13 @@ const getUser = async (req: Request, res: Response) => {
   const user = await User.findOne({ _id: id }).populate('role').exec();
 
   if (!user) {
-    return res.status(404).json({ message: `User with id "${id}" not found.` });
+    return res
+      .status(404)
+      .contentType('application/json')
+      .json({ message: `User with id "${id}" not found.` });
   }
 
-  return res.status(200).json(user);
+  return res.status(200).contentType('application/json').json(user);
 };
 
 const updateUser = async (req: Request, res: Response) => {
@@ -44,18 +56,21 @@ const updateUser = async (req: Request, res: Response) => {
   const user = await User.findOne({ _id: id });
 
   if (!user) {
-    return res.status(404).json({ message: `User with id "${id}" not found.` });
+    return res
+      .status(404)
+      .contentType('application/json')
+      .json({ message: `User with id "${id}" not found.` });
   }
 
   if (!name || !role || !email) {
-    return res.status(422).json({ message: 'Incorrect request' });
+    return res.status(422).contentType('application/json').json({ message: 'Incorrect request' });
   }
 
   await User.updateOne({ _id: id }, { name, email, role });
 
   const userUpdated = await User.findById(id);
 
-  return res.status(200).json(userUpdated);
+  return res.status(200).contentType('application/json').json(userUpdated);
 };
 
 const deleteUser = async (req: Request, res: Response) => {
@@ -63,7 +78,7 @@ const deleteUser = async (req: Request, res: Response) => {
 
   await User.findByIdAndDelete(id);
 
-  return res.status(200).json({ message: 'User deleted successfully.' });
+  return res.status(200).contentType('application/json').json({ message: 'User deleted successfully.' });
 };
 
 export { createUser, deleteUser, getAllUsers, getUser, updateUser };

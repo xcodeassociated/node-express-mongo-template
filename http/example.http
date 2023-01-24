@@ -4,6 +4,9 @@
 GET http://localhost:4500/permissions
 
 ###
+GET http://localhost:4500/permissions?page=0&size=100&sort=createdAt&direction=DESC
+
+###
 POST http://localhost:4500/permissions
 Content-Type: application/json
 
@@ -27,10 +30,13 @@ DELETE http://localhost:4500/permissions/ID
 GET http://localhost:4500/users
 
 ###
+GET http://localhost:4500/users?page=0&size=100&sort=createdAt&direction=DESC
+
+###
 POST http://localhost:4500/users
 Content-Type: application/json
 
-{"name": "user test node", "email":  "test-node@test.com", "role": ["63cfd86a042b3f31fbba186d"]}
+{"name": "user test node", "email":  "test-nodeqqqwwee22e@test.com", "role": []}
 
 ###
 PUT http://localhost:4500/users/63cfd884042b3f31fbba186e
