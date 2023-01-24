@@ -1,8 +1,7 @@
 import { Request, Response } from 'express';
 
 import { User, UserInput } from '../models/user.model';
-
-import { queue } from '../queue';
+import { eventEmitter } from '../ApplicationEvents';
 
 const createUser = async (req: Request, res: Response) => {
   const { email, name, role } = req.body;
@@ -15,7 +14,7 @@ const createUser = async (req: Request, res: Response) => {
 
   const userCreated = await User.create(userInput);
 
-  queue.push(userCreated._id);
+  eventEmitter.emit('user_created', userCreated._id);
 
   return res.status(201).json(userCreated);
 };

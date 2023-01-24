@@ -30,7 +30,7 @@ GET http://localhost:4500/users
 POST http://localhost:4500/users
 Content-Type: application/json
 
-{"name": "user test node 22", "email":  "test-node-221112@test.com", "role": ["63cfd86a042b3f31fbba186d"]}
+{"name": "user test node", "email":  "test-node@test.com", "role": ["63cfd86a042b3f31fbba186d"]}
 
 ###
 PUT http://localhost:4500/users/63cfd884042b3f31fbba186e

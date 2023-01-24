@@ -1614,7 +1614,7 @@
     "@types/node" "*"
     "@types/webidl-conversions" "*"
 
-"@types/ws@*":
+"@types/ws@*", "@types/ws@^8.5.4":
   version "8.5.4"
   resolved "https://registry.npmjs.org/@types/ws/-/ws-8.5.4.tgz"
   integrity sha512-zdQDHKUgcX/zBc4GrwsE/7dVdAD8JR4EuiAXiiUhhfyIJXXb2+PrGshFyeXWQPMmmZ2XxgaqclgpIC7eTXc1mg==
@@ -2264,11 +2264,6 @@ configstore@^5.0.1:
     unique-string "^2.0.0"
     write-file-atomic "^3.0.0"
     xdg-basedir "^4.0.0"
-
-consumer-queue@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.npmjs.org/consumer-queue/-/consumer-queue-1.1.0.tgz"
-  integrity sha512-m8thFi9TuzuQfkPjN1Co/8tmuLYF0UvCQzzWkChQhgoamaBaWe1ZgYDS6lCOHlPtf2k/yvJX01JRP7l0As3yPA==
 
 content-disposition@0.5.3:
   version "0.5.3"
