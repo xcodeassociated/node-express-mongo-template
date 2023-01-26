@@ -10,6 +10,7 @@ import http from 'http';
 import * as WebSocket from 'ws';
 import { eventEmitter } from './ApplicationEvents';
 import { v4 as uuidv4 } from 'uuid';
+import { consumer, producer } from './kafka';
 
 dotenv.config();
 
@@ -86,6 +87,54 @@ wss.on('connection', (ws: WebSocket) => {
 server.listen(WS_PORT, () => {
   // @ts-ignore
   console.log(`WebSocket server started on URL: ${HOST}:${server.address().port}${WS_PATH}`);
+});
+producer.on('producer.connect', (e) => {
+  console.log(`KafkaProvider: connected`);
+});
+producer.on('producer.disconnect', (e) => {
+  console.log(`KafkaProvider: could not connect`);
+});
+producer.on('producer.network.request_timeout', (payload) => {
+  console.log(`KafkaProvider: request timeout ${payload}`);
+});
+
+const run = async () => {
+  // Consuming
+  await consumer.connect();
+  await consumer.subscribe({ topic: 'sample_topic', fromBeginning: true });
+
+  await consumer.run({
+    eachMessage: async ({ message, partition, topic }) => {
+      console.log('[kafka]: rx: ');
+      console.log({
+        partition,
+        topic,
+        offset: message.offset,
+        value: message.value?.toString(),
+      });
+    },
+  });
+};
+
+run().catch(console.error);
+
+// Producing
+producer.connect().then(() => {
+  console.log('sending kafka message...');
+  producer
+    .send({
+      topic: 'sample_topic',
+      messages: [{ value: 'hello node.js' }],
+    })
+    .then((e) => console.log('kafka message sent'));
+});
+
+eventEmitter.on('user_created', (data) => {
+  console.log(`EventEmitter received value: ${JSON.stringify(data)}`);
+  producer.send({
+    topic: 'sample_topic',
+    messages: [{ value: `USER_CREATED_NODE: ${data}` }],
+  });
 });
 
 process.on('uncaughtException', function (err) {
