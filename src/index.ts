@@ -9,6 +9,7 @@ import { main } from './socket/rsocket';
 import http from 'http';
 import * as WebSocket from 'ws';
 import { eventEmitter } from './ApplicationEvents';
+import { v4 as uuidv4 } from 'uuid';
 
 dotenv.config();
 
@@ -43,8 +44,39 @@ app.listen(PORT, async () => {
 const server = http.createServer(app);
 const wss = new WebSocket.Server({ server, path: WS_PATH });
 
+const websockets = {};
+
+type Message = {
+  from: string;
+  to: string;
+  content: string;
+};
 wss.on('connection', (ws: WebSocket) => {
   console.log(`ws connected: ${ws}`);
+
+  const userId: string = uuidv4();
+
+  websockets[userId] = ws;
+
+  ws.send(userId);
+
+  ws.on('message', (msg) => {
+    const message: Message = JSON.parse(msg.toString());
+    const sink: WebSocket = websockets[message.to];
+
+    sink.send(msg.toString());
+  });
+
+  ws.on('close', () => {
+    console.log('ws was closed');
+    for (const uid in websockets) {
+      if (websockets.hasOwnProperty(uid)) {
+        delete websockets[uid];
+        console.log(`ws deleted: ${uid}`);
+      }
+    }
+  });
+
   eventEmitter.on('user_created', (data) => {
     console.log(`EventEmitter received value: ${JSON.stringify(data)}`);
     ws.send(`USER_CREATED_NODE: ${data}`);

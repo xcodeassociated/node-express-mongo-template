@@ -34,6 +34,7 @@
     "@types/rsocket-flowable": "^0.0.5",
     "@types/rsocket-websocket-client": "^0.0.4",
     "@types/rsocket-websocket-server": "^0.0.3",
+    "@types/uuid": "^9.0.0",
     "@types/ws": "^8.5.4",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
@@ -45,6 +46,7 @@
     "rsocket-messaging": "^1.0.0-alpha.3",
     "rsocket-websocket-client": "^1.0.0-alpha.3",
     "rsocket-websocket-server": "^1.0.0-alpha.3",
-    "rxjs": "^7.8.0"
+    "rxjs": "^7.8.0",
+    "uuid": "^9.0.0"
   }
 }
