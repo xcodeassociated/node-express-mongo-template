@@ -6,4 +6,4 @@ const kafka = new Kafka({
 });
 
 export const producer = kafka.producer();
-export const consumer = kafka.consumer({ groupId: 'sample-group' });
+export const consumer = kafka.consumer({ groupId: 'sample-group-node' });

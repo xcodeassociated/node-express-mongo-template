@@ -53,7 +53,7 @@ function makeServer() {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       wsCreator: (options) => {
         return new WebSocket.Server({
-          port: 8081,
+          port: 4502,
         });
       },
     }),
@@ -84,7 +84,7 @@ function makeServer() {
 function makeConnector() {
   return new RSocketConnector({
     transport: new WebsocketClientTransport({
-      url: 'ws://localhost:8081',
+      url: 'ws://localhost:4502',
       wsCreator: (url) => new WebSocket(url) as any,
     }),
   });

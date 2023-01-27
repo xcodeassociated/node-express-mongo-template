@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { Role, RoleInput } from '../models/role.model';
-import { getPageFromRequest, getSort, Page } from "./requestTypes";
+import { getPageFromRequest, getSort, Page } from './requestTypes';
 
 const createRole = async (req: Request, res: Response) => {
   const { description, name } = req.body;

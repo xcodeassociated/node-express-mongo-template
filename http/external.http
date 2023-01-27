@@ -1,0 +1,19 @@
+### External Endpoint HTTP
+
+###
+GET http://localhost:4500/external/1
+
+###
+POST http://localhost:4500/external
+Content-Type: application/json
+
+{"data": "sample data node"}
+
+###
+PUT http://localhost:4500/external/1
+Content-Type: application/json
+
+{"data": "sample data node"}
+
+###
+DELETE http://localhost:4500/external/1

@@ -11,6 +11,8 @@ import * as WebSocket from 'ws';
 import { eventEmitter } from './ApplicationEvents';
 import { v4 as uuidv4 } from 'uuid';
 import { consumer, producer } from './kafka';
+import { sampleRoute } from './routes/sample.route';
+import { externalRoute } from './routes/external.route';
 
 dotenv.config();
 
@@ -31,6 +33,8 @@ app.use(express.json());
 
 app.use('/', roleRoute());
 app.use('/', userRoute());
+app.use('/', sampleRoute());
+app.use('/', externalRoute());
 
 app.get('/', (req, res) => {
   return res.json({ message: 'Hello World!' });
