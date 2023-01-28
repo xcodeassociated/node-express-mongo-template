@@ -1,6 +1,7 @@
 import express, { Request } from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
+import schedule, { Job } from 'node-schedule';
 
 import { connectToDatabase } from './databaseConnection';
 import { roleRoute } from './routes/role.route';
@@ -141,6 +142,19 @@ eventEmitter.on('user_created', (data) => {
   });
 });
 
+const job: Job = schedule.scheduleJob('0 * * * * *', () => {
+  console.log(`[cron]: periodic task invoked at: ${new Date().toISOString()}`);
+});
+// note: job.cancel() interrupts the scheduled job
+
+console.log(`cron job: ${job.name}`);
+
 process.on('uncaughtException', function (err) {
   console.log('Caught exception: ', err);
+});
+
+process.on('SIGINT', function () {
+  console.warn('\n');
+  console.warn('[exit]: application closes ...');
+  schedule.gracefulShutdown().then(() => process.exit(0));
 });
