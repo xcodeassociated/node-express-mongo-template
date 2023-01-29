@@ -2,6 +2,9 @@ import { Request, Response } from 'express';
 
 const postHandler = async (req: Request, res: Response) => {
   const { data } = req.body;
+  const requestHeaders = req.headers;
+
+  console.log(`[sample]: request headers: ${JSON.stringify(requestHeaders)}`);
 
   console.log(`[sample]: POST with body: ${JSON.stringify(req.body)}`);
   console.log(`[sample]: returning: ${JSON.stringify(data)}`);
@@ -10,6 +13,9 @@ const postHandler = async (req: Request, res: Response) => {
 
 const getHandler = async (req: Request, res: Response) => {
   const { id } = req.params;
+  const requestHeaders = req.headers;
+
+  console.log(`[sample]: request headers: ${JSON.stringify(requestHeaders)}`);
 
   console.log(`[sample]: GET with: ${id}`);
   console.log(`[sample]: returning: ${id}`);
@@ -19,6 +25,9 @@ const getHandler = async (req: Request, res: Response) => {
 const putHandler = async (req: Request, res: Response) => {
   const { id } = req.params;
   const { data } = req.body;
+  const requestHeaders = req.headers;
+
+  console.log(`[sample]: request headers: ${JSON.stringify(requestHeaders)}`);
 
   console.log(`[sample]: PUT with id: ${id}, body: ${JSON.stringify(req.body)}`);
   console.log(`[sample]: returning: ${JSON.stringify(data)}`);
@@ -27,6 +36,9 @@ const putHandler = async (req: Request, res: Response) => {
 
 const deleteHandler = async (req: Request, res: Response) => {
   const { id } = req.params;
+  const requestHeaders = req.headers;
+
+  console.log(`[sample]: request headers: ${JSON.stringify(requestHeaders)}`);
 
   console.log(`[sample]: DELETE with id: ${id}`);
   return res.status(200).send();
