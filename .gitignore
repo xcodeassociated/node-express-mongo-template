@@ -120,3 +120,6 @@ build
 docker/volumes/
 volumes/
 .DS_Store
+
+http-client.env.json
+

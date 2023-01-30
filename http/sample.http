@@ -1,19 +1,20 @@
 ### Sample Endpoint HTTP
 
 ###
-GET http://localhost:4500/sample/1
+GET {{host}}/sample/{{$random.integer(0, 1000)}}
 
 ###
-POST http://localhost:4500/sample
+POST {{host}}/sample
 Content-Type: application/json
 
-{"data": "sample data node"}
+{"data": "sample data: {{$uuid}}"}
 
 ###
-PUT http://localhost:4500/sample/1
+PUT {{host}}/sample/{{$random.integer(0, 1000)}}
 Content-Type: application/json
 
-{"data": "sample data node"}
+{"data": "sample data: {{$uuid}} change"}
 
 ###
-DELETE http://localhost:4500/sample/1
+DELETE {{host}}/sample/{{$random.integer(0, 1000)}}
+

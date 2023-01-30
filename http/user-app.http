@@ -1,0 +1,62 @@
+### Coroutine
+
+###
+GET {{host}}/permissions?page=0&size=10&sort=id&direction=DESC
+
+###
+POST {{host}}/permissions
+Content-Type: application/json
+
+{"name": "test-coroutine-{{$random.integer(0, 100)}}", "description": "test description coroutine"}
+
+> {%
+client.global.set("permissionId", response.body._id)
+ %}
+
+###
+GET {{host}}/permissions/{{permissionId}}
+
+###
+PUT {{host}}/permissions/{{permissionId}}
+Content-Type: application/json
+
+{"name": "test-coroutine-changed", "description": "test description coroutine changed!"}
+
+###
+DELETE {{host}}/permissions/{{permissionId}}
+
+> {%
+client.global.set("permissionId", null)
+ %}
+
+### User
+
+###
+GET {{host}}/users?page=0&size=10&sort=createdAt&direction=ASC
+
+###
+POST {{host}}/users
+Content-Type: application/json
+
+{"name": "user: {{$uuid}}", "email":  "{{$random.email}}", "role": ["{{permissionId}}"]}
+
+> {%
+    client.global.set("userId", response.body._id)
+%}
+
+###
+PUT {{host}}/users/{{userId}}
+Content-Type: application/json
+
+{"name": "user changed: {{$uuid}}", "email":  "{{$random.email}}", "role": ["{{permissionId}}"]}
+
+###
+GET {{host}}/users/{{userId}}
+
+###
+DELETE {{host}}/users/{{userId}}
+
+> {%
+    client.global.set("userId", null)
+%}
+
