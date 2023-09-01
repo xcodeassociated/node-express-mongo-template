@@ -1,8 +1,8 @@
-import { Request, Response } from 'express';
+import { Request, Response } from "express";
 
-import { User, UserInput } from '../models/user.model';
-import { eventEmitter } from '../ApplicationEvents';
-import { getPageFromRequest, getSort, Page } from './requestTypes';
+import { User, UserInput } from "../models/user.model";
+import { eventEmitter } from "../ApplicationEvents";
+import { getPageFromRequest, getSort, Page } from "./requestTypes";
 
 const createUser = async (req: Request, res: Response) => {
   const { email, name, role } = req.body;
@@ -81,4 +81,10 @@ const deleteUser = async (req: Request, res: Response) => {
   return res.status(200).contentType('application/json').json({ message: 'User deleted successfully.' });
 };
 
-export { createUser, deleteUser, getAllUsers, getUser, updateUser };
+const countUsers = async (req: Request, res: Response) => {
+  const count = await User.count();
+
+  return res.status(200).contentType('application/json').json(count);
+};
+
+export { createUser, deleteUser, getAllUsers, getUser, updateUser, countUsers };
