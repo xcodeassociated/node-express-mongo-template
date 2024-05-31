@@ -32,7 +32,7 @@ client.global.set("permissionId", null)
 ### User
 
 ###
-GET {{host}}/users?page=1&size=5&sort=createdAt&direction=ASC
+GET {{host}}/users?page=0&size=5&sort=createdAt&direction=ASC
 
 ###
 GET {{host}}/usersCount
